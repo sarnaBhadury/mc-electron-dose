@@ -41,10 +41,14 @@ Before spatial translation occurs, the algorithm determines the `actual_step` di
 1.  **Continuous Limit ($s$)**: To prevent unphysical macroscopic steps, a maximum step length is enforced. This ensures the electron does not lose more than a defined fraction (e.g., $3\%$) of its total energy continuously.
 2.  **Geometric Boundary ($d_{boundary}$)**: Utilizing parametric ray-plane intersection, the 3D distance to the nearest $X, Y,$ or $Z$ voxel boundary is calculated using the electron's current direction cosines ($u, v, w$).
 3.  **Møller Scattering ($s_{moller}$)**: The distance to the next hard electron-electron collision is sampled exponentially: 
-    $$ s_{moller} = -\lambda_{moller} \ln(R) $$
-    where $\lambda$ is the Mean Free Path and $R$ is a uniform random number between 0 and 1.
+
+$$ s_{moller} = -\lambda_{moller} \ln(R) $$
+
+where $\lambda$ is the Mean Free Path and $R$ is a uniform random number between 0 and 1.
+
 4.  **Bremsstrahlung ($s_{brem}$)**: The distance to the next hard photon emission event is sampled similarly: 
-    $$ s_{brem} = -\lambda_{brem} \ln(R) $$
+
+$$ s_{brem} = -\lambda_{brem} \ln(R) $$
 
 The selected step size is $s_{step} = \min(s, d_{boundary}, s_{moller}, s_{brem})$. 
 
@@ -55,14 +59,14 @@ Once the step distance is established, the average continuous energy lost over t
 During the step, the electron undergoes numerous soft collisions causing angular deflection.
 *   **The Highland Formula**: Calculates the Root Mean Square scattering angle ($\theta_{rms}$) based on the electron's energy and the step length:
 
-    $$ \theta_{rms} = \frac{13.6 \text{ MeV}}{\beta c p} \sqrt{\frac{\Delta s}{X_0}} $$
+$$ \theta_{rms} = \frac{13.6 \text{ MeV}}{\beta c p} \sqrt{\frac{\Delta s}{X_0}} $$
 
-    Where:
-    * **$\theta_{rms}$**: The root-mean-square of the projected scattering angle.
-    * **$\beta c$**: The velocity of the electron.
-    * **$p$**: The momentum of the electron.
-    * **$\Delta s$**: The path length (step size) the electron travels.
-    * **$X_0$**: The radiation length of the material.
+Where:
+* **$\theta_{rms}$**: The root-mean-square of the projected scattering angle.
+* **$\beta c$**: The velocity of the electron.
+* **$p$**: The momentum of the electron.
+* **$\Delta s$**: The path length (step size) the electron travels.
+* **$X_0$**: The radiation length of the material.
 *   **Stochastic Sampling**: Two orthogonal scattering angles ($\theta_x, \theta_y$) are sampled from a Gaussian distribution with standard deviation derived from $\theta_{rms}$. These are geometrically combined to yield the final polar ($\theta$) and azimuthal ($\phi$) scattering angles.
 *   **The "Hinge" Displacement**: To accurately map the curved zigzag trajectory onto a linear grid, the simulation utilizes a mid-step hinge approximation. The spatial translation is calculated as an average of the pre-scatter vector $(u_{old}, v_{old}, w_{old})$ and the post-scatter vector $(u_{new}, v_{new}, w_{new})$, effectively simulating a curve.
 
@@ -119,7 +123,9 @@ Answers the question: **"How likely is each type of interaction?"** Uses Bethe-H
 
 ### `scoring/dose_scorer.py` — Statistical Uncertainty
 Accumulates results and calculates the **statistical uncertainty** (Standard Error of the Mean) for each voxel using the variance of histories:
+
 $$ s_{\bar{E}} = \sqrt{\frac{s^2}{N}} $$
+
 Where:
 * **$s_{\bar{E}}$**: The statistical uncertainty (Standard Error) of the average deposited energy in a voxel.
 * **$s^2$**: The variance (how much the deposited energy fluctuated between different primary particles).
@@ -136,6 +142,9 @@ After running the simulation with a 12 MeV beam, the physics engine outputs stan
 - **Statistical Uncertainty** = ~14.5% (Scales as $1/\sqrt{N}$)
 
 ### 1. Central Axis PDD Data (`dose_summary.csv`)
+
+![Percentage Depth Dose Curve](output/depth_dose.png)
+
 This file traces the Percentage Depth Dose (PDD) curve down the central axis of the water phantom.
 
 ```csv
@@ -163,6 +172,9 @@ Depth (cm),PDD (%),Uncertainty (%)
 ```
 
 ### 2. 3D Voxel Dose Map (`voxels_125k.csv`)
+
+![2D Dose Map](output/dose_2d_map.png)
+
 The simulation tracks all 125,000 independent voxels in the 3D grid. Below is a raw data sample showing the exact center of the beam (`ix=25, iy=25`) as it passes through various depth slices (`iz`).
 
 ```csv
