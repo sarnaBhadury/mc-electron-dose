@@ -55,6 +55,12 @@ Once the step distance is established, the average continuous energy lost over t
 During the step, the electron undergoes numerous soft collisions causing angular deflection.
 *   **The Highland Formula**: Calculates the Root Mean Square scattering angle ($\theta_{rms}$) based on the electron's energy and the step length:
     $$ \theta_{rms} = \frac{13.6 \text{ MeV}}{\beta c p} \sqrt{\frac{\Delta s}{X_0}} $$
+    Where:
+    * **$\theta_{rms}$**: The root-mean-square of the projected scattering angle.
+    * **$\beta c$**: The velocity of the electron.
+    * **$p$**: The momentum of the electron.
+    * **$\Delta s$**: The path length (step size) the electron travels.
+    * **$X_0$**: The radiation length of the material.
 *   **Stochastic Sampling**: Two orthogonal scattering angles ($\theta_x, \theta_y$) are sampled from a Gaussian distribution with standard deviation derived from $\theta_{rms}$. These are geometrically combined to yield the final polar ($\theta$) and azimuthal ($\phi$) scattering angles.
 *   **The "Hinge" Displacement**: To accurately map the curved zigzag trajectory onto a linear grid, the simulation utilizes a mid-step hinge approximation. The spatial translation is calculated as an average of the pre-scatter vector $(u_{old}, v_{old}, w_{old})$ and the post-scatter vector $(u_{new}, v_{new}, w_{new})$, effectively simulating a curve.
 
@@ -112,6 +118,10 @@ Answers the question: **"How likely is each type of interaction?"** Uses Bethe-H
 ### `scoring/dose_scorer.py` — Statistical Uncertainty
 Accumulates results and calculates the **statistical uncertainty** (Standard Error of the Mean) for each voxel using the variance of histories:
 $$ s_{\bar{E}} = \sqrt{\frac{s^2}{N}} $$
+Where:
+* **$s_{\bar{E}}$**: The statistical uncertainty (Standard Error) of the average deposited energy in a voxel.
+* **$s^2$**: The variance (how much the deposited energy fluctuated between different primary particles).
+* **$N$**: The total number of particle histories simulated.
 
 ---
 
@@ -160,7 +170,7 @@ ix,iy,iz,x_cm,y_cm,z_cm,energy_deposited_MeV,dose_pct,uncertainty_pct
 25,25,12,5.1,5.1,2.5,5.997829,80.92,13.68
 25,25,13,5.1,5.1,2.7,4.827987,84.42,13.46
 25,25,14,5.1,5.1,2.9,4.331053,95.92,12.49
-25,25,15,5.1,5.1,3.1,5.318154,100.0,12.31   <-- Peak Dose
+25,25,15,5.1,5.1,3.1,5.318154,100.0,12.31
 25,25,16,5.1,5.1,3.3,6.195164,90.06,12.66
 25,25,17,5.1,5.1,3.5,7.251475,86.08,13.42
 25,25,18,5.1,5.1,3.7,8.950843,80.27,13.93
