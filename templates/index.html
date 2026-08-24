@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monte Carlo Radiation Transport</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Monte Carlo Radiation Transport</h1>
+            <p>Voxelized Water Phantom Electron Simulator</p>
+        </header>
+
+        <main>
+            <div class="panel controls-panel glass">
+                <h2>Simulation Parameters</h2>
+                <form id="sim-form">
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label>Beam Energy (MeV)</label>
+                            <input type="number" id="energy" value="12.0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label>Histories</label>
+                            <input type="number" id="histories" value="100000" step="1000">
+                        </div>
+                        <div class="input-group">
+                            <label>Phantom Size (cm³)</label>
+                            <input type="number" id="phantom_size" value="10.0" step="1.0">
+                        </div>
+                        <div class="input-group">
+                            <label>Voxel Size (cm)</label>
+                            <input type="number" id="voxel_size" value="0.2" step="0.05">
+                        </div>
+                        <div class="input-group">
+                            <label>Field Size (cm²)</label>
+                            <input type="number" id="field_size" value="10.0" step="1.0">
+                        </div>
+                        <div class="input-group">
+                            <label>Electron Cutoff (keV)</label>
+                            <input type="number" id="e_cut" value="10.0" step="1.0">
+                        </div>
+                        <div class="input-group">
+                            <label>Random Seed</label>
+                            <input type="number" id="seed" value="42">
+                        </div>
+                    </div>
+                    
+                    <div class="grid-display">
+                        Calculated Grid: <span id="grid-calc" class="highlight">125,000</span> voxels
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" id="btn-run-full" class="btn primary">Run Full Simulation</button>
+                        <button type="button" id="btn-run-anim" class="btn secondary">Run 3D Animation</button>
+                    </div>
+                </form>
+                
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                    <p id="loading-text">Running...</p>
+                </div>
+            </div>
+
+            <div class="panel results-panel glass">
+                <h2>Results</h2>
+                <div id="results-content">
+                    <div class="placeholder">
+                        <p>Configure parameters and run a simulation to view results.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Python cache and environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# VS Code
+.vscode/
+
+# Ignore massive data files and simulation outputs to keep repo clean
+output/dose_data.npz
+output/voxels_*.csv
+output/*.png
+plots/*.png
+test_output/
+
+# Mac OS system files
+.DS_Store
