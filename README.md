@@ -54,7 +54,9 @@ Once the step distance is established, the average continuous energy lost over t
 ### 4. Multiple Coulomb Scattering and the "Random Hinge"
 During the step, the electron undergoes numerous soft collisions causing angular deflection.
 *   **The Highland Formula**: Calculates the Root Mean Square scattering angle ($\theta_{rms}$) based on the electron's energy and the step length:
+
     $$ \theta_{rms} = \frac{13.6 \text{ MeV}}{\beta c p} \sqrt{\frac{\Delta s}{X_0}} $$
+
     Where:
     * **$\theta_{rms}$**: The root-mean-square of the projected scattering angle.
     * **$\beta c$**: The velocity of the electron.
